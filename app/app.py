@@ -97,3 +97,16 @@ team_name_map = dict(zip(teams_df['id'], teams_df['name']))
 easy_fixtures.index = easy_fixtures.index.map(team_name_map)
 
 st.dataframe(easy_fixtures.rename("Easy Fixtures").to_frame(), use_container_width=True)
+
+# -------------------------
+# Top Defenders by Defensive Contributions
+# -------------------------
+st.header("🛡️ Top 20 Defenders by Defensive Contributions")
+defenders = players_df[players_df['element_type'] == 2]
+defenders_defensive_contributions = defenders[['web_name', 'defensive_contribution', 'clearances_blocks_interceptions', 'tackles', 'recoveries', 'minutes']].sort_values(by='defensive_contribution', ascending=False).head(20)
+st.dataframe(defenders_defensive_contributions.set_index('web_name'), use_container_width=True)
+
+st.header("🛡️ Top 20 Midfielders by Defensive Contributions")
+midfielders = players_df[players_df['element_type'] == 3]
+midfielders_defensive_contributions = midfielders[['web_name', 'defensive_contribution', 'clearances_blocks_interceptions', 'tackles', 'recoveries', 'minutes']].sort_values(by='defensive_contribution', ascending=False).head(20)
+st.dataframe(midfielders_defensive_contributions.set_index('web_name'), use_container_width=True)
